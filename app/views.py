@@ -23,7 +23,7 @@ from bokeh.util.string import encode_utf8
 
 
 #DATABASE = '../sql/nba_stats.db'
-DATABASE = 'results.db'
+DATABASE = 'results.db' # change for web hosting purposes
 
 app = Flask(__name__)
 app.config.from_object(__name__)
@@ -36,7 +36,7 @@ def get_db():
     return db
 """
 def connect_db():
-    return sqlite3.connect(DATABASE)
+    return sqlite3.connect(app.config['DATABASE'])
 
 @app.before_request
 def before_request():
@@ -143,14 +143,14 @@ def output():
                pred = df['pred'][row],
                points = df['points'][row]) for row in range(df.shape[0])]
 
-
+	"""
     # Get dimensions of screen with Tkinter
     root = tk.Tk()
     scr_width = root.winfo_screenwidth()
     scr_height = root.winfo_screenheight()
     wide = scr_width * 0.4
     height = scr_height * 0.45
-
+	"""
 
     # MAKE PLOT DATA
     pred = np.array(df['pred'])
@@ -183,7 +183,7 @@ def output():
     # create a new plot with the tools above, and explicit ranges
     TOOLS="resize, pan, wheel_zoom, box_zoom, reset, hover"
     p = figure(tools = TOOLS, x_range=(-175,175), y_range=(-175, 175),
-               plot_width = int(wide), plot_height = int(height))
+               plot_width = 650, plot_height = 450)
     p.patch([0, 0, 5000, 5000], [0, 5000, 5000, 0],
             alpha =  0.3, color = (6, 110, 10))
     p.patch([0, 0, -5000, -5000],[0, -5000, -5000, 0],
@@ -223,7 +223,7 @@ def output():
     show(p)
     """
     html = render_template("result.html", input_team = input_team,
-                           entries = entries, wide = wide, height = height,
+                           entries = entries,
                            plot_script = plot_script, plot_div = plot_div,
                            js_resources=js_resources,
                            css_resources=css_resources)
