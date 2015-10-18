@@ -1,7 +1,7 @@
 import sqlite3
 import os
 from contextlib import closing
-from app import app
+#from app import app
 import StringIO
 import Tkinter as tk
 from collections import OrderedDict
@@ -23,8 +23,9 @@ from bokeh.util.string import encode_utf8
 
 
 #DATABASE = '../sql/nba_stats.db'
-DATABASE = 'app/results.db'
+DATABASE = 'results.db'
 
+app = Flask(__name__)
 app.config.from_object(__name__)
 
 """
@@ -287,3 +288,6 @@ def img(input_team):
     response=make_response(png_output.getvalue())
     response.headers['Content-Type'] = 'image/png'
     return response
+	
+if __name__ == "__main__":
+	app.run(debug = True)
