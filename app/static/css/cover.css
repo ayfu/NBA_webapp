@@ -185,8 +185,8 @@ margin-right: auto;
 @media (min-width: 768px) {
   /* Pull out the header and footer */
   .masthead {
-    position: fixed;
-    top: 0;
+    position: absolute;
+    top: 0px;
     background-color: #000000;
     opacity: 0.9;
   }
